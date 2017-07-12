@@ -88,7 +88,7 @@ class CartItem implements Arrayable, Jsonable
         $this->name     = $name;
         $this->price    = floatval($price);
         $this->options  = new CartItemOptions($options);
-        $this->rowId = $this->generateRowId($id, $options);
+        $this->rowId = $this->generateRowId($id);
     }
 
     /**
@@ -213,7 +213,7 @@ class CartItem implements Arrayable, Jsonable
         $this->priceTax = $this->price + $this->tax;
         $this->options  = new CartItemOptions(array_get($attributes, 'options', $this->options));
 
-        $this->rowId = $this->generateRowId($this->id, $this->options->all());
+        $this->rowId = $this->generateRowId($this->id);
     }
 
     /**
@@ -324,10 +324,9 @@ class CartItem implements Arrayable, Jsonable
      * Generate a unique id for the cart item.
      *
      * @param string $id
-     * @param array  $options
      * @return string
      */
-    protected function generateRowId($id, array $options)
+    protected function generateRowId($id)
     {
         ksort($options);
 
